@@ -1,0 +1,22 @@
+blueprint:
+  id: wax-collection-velocity-scatter-plot
+  tier: market-analytics
+  status: alpha-ready
+  benchmark_target: PX-Perfection-Standard-v1.0
+
+features:
+  - holding_duration_vs_velocity_scatter
+  - quadrant_classification
+  - wash_trading_detection
+  - interactive_template_explorer
+
+recommended_stack:
+  viz: Scatter plot (Chart.js / Recharts)
+  data: AtomicMarket + AtomicAssets
+  detection: client_side_pattern_matching
+
+machine_instructions:
+  - "Build interactive scatter plot for collection velocity analysis"
+  - "Implement quadrant classification and wash trading detection"
+  - "Create clear visual dashboard with template drill-down"
+  - "Add educational explanations of holder behavior metrics"
