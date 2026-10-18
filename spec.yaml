@@ -1,22 +1,32 @@
 blueprint:
   id: wax-collection-velocity-scatter-plot
+  name: Collection Velocity Scatter Plot
   tier: market-analytics
-  status: alpha-ready
-  benchmark_target: PX-Perfection-Standard-v1.0
+  category: analytics
+  status: refined
+  version: "0.5.0"
+  last_refined: "2026-10-18"
+
+metadata:
+  description: |
+    Pure hold-duration vs trade-velocity quadrant classification with soft
+    wash-suspect flags and SVG scatter. Educational market analytics.
+
+invariants:
+  - Classification pure given points + thresholds
+  - Demo data deterministic
+  - Wash labels heuristic only
 
 features:
-  - holding_duration_vs_velocity_scatter
-  - quadrant_classification
-  - wash_trading_detection
-  - interactive_template_explorer
-
-recommended_stack:
-  viz: Scatter plot (Chart.js / Recharts)
-  data: AtomicMarket + AtomicAssets
-  detection: client_side_pattern_matching
+  implemented:
+    - classifyPoint, classifyCollection
+    - VelocityScatterSvg, counts, flags, demo
+    - app page wired to engines
 
 machine_instructions:
-  - "Build interactive scatter plot for collection velocity analysis"
-  - "Implement quadrant classification and wash trading detection"
-  - "Create clear visual dashboard with template drill-down"
-  - "Add educational explanations of holder behavior metrics"
+  - Use examples/engines.ts — no Math.random for analysis points
+  - Map AtomicMarket sales into holdDays and velocityPer30d at app edge
+
+technical_requirements:
+  framework: Next.js + TypeScript
+  styling: Tailwind CSS
