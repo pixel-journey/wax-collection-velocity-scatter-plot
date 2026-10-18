@@ -1,115 +1,56 @@
-# wax-collection-velocity-scatter-plot — Collection Velocity Scatter Plot
+# wax-collection-velocity-scatter-plot
 
-> **Status:** ✅ **FULL PX PERFECTION (Alpha-Ready)** | July 2026  
-> **Category:** Market & Valuation Analytics  
-> **Parent Catalog:** [pixel-journey/wax-ecosystem-blueprint-catalog](https://github.com/pixel-journey/wax-ecosystem-blueprint-catalog)
-> **Benchmark:** gkniftyheads-tracker + Pixel Journey PX Perfection Standard v1.0
+> **Status:** 🔄 Deep Refinement (PX Perfection Standard v1.1)  
+> **Category:** Market analytics  
+> **Parent Catalog:** [wax-ecosystem-blueprint-catalog](https://github.com/pixel-journey/wax-ecosystem-blueprint-catalog)
 
-**Goal:** An interactive scatter plot that charts NFT templates within a WAX collection by holding duration vs trade frequency. Automatically identifies quadrants for safe long-term storage vs high-risk speculative flipping and wash trading zones.
-
----
-
-## Educational Core (Why This Exists)
-
-Collections often struggle to distinguish genuine long-term collectors from speculative flippers and wash traders who artificially inflate metrics. This visual tool makes those behaviors immediately visible through data-driven quadrants and automated detection of manipulation.
-
-**Common Pitfalls This Tool Addresses**:
-- Judging collection health by volume alone without understanding holder behavior
-- Missing wash trading loops that distort perceived demand
-- Overwhelming stakeholders with raw sales data instead of clear insights
-- Making airdrop or partnership decisions without behavioral context
-
-**Learning Outcomes**:
-After studying this blueprint, you should be able to:
-- Calculate and interpret holding duration vs velocity metrics
-- Build interactive scatter visualizations with quadrant classification
-- Detect wash trading patterns client-side
-- Design market analytics tools that surface manipulation risks
+**Goal:** Classify collection templates by **hold duration vs trade velocity** into transparent quadrants, with soft **wash-suspect** flags. Educational scatter pipeline — not a marketplace accusation engine.
 
 ---
 
-## Tech Recommendations Matrix
+## Honesty note
 
-| Component             | Recommended                     | Alternative              | Why Chosen                                           | When to Choose Alternative          |
-|-----------------------|---------------------------------|--------------------------|------------------------------------------------------|-------------------------------------|
-| Visualization         | Scatter plot (Chart.js / Recharts) | D3 scatter             | Good balance of features and development speed       | When you need maximum visual control |
-| Data Source           | AtomicMarket + AtomicAssets     | Third-party indexer      | Direct, trustworthy, production-ready on WAX         | When you need deeper historical joins |
-| Wash Trading Detection| Client-side pattern matching    | Server-side ML           | Transparent, auditable, educational                  | When you need complex pattern recognition |
+Prior UI used `Math.random()` points and a “scatter would render here” placeholder under a full-perfection claim. Core logic is now pure classification + SVG scatter in `/examples`.
 
 ---
 
-## Machine-Optimized Spec (spec.yaml)
+## Quick Start
 
-```yaml
-blueprint:
-  id: wax-collection-velocity-scatter-plot
-  tier: market-analytics
-  status: alpha-ready
-  benchmark_target: PX-Perfection-Standard-v1.0
+```ts
+import { classifyCollection } from "./examples/engines";
 
-features:
-  - holding_duration_vs_velocity_scatter
-  - quadrant_classification
-  - wash_trading_detection
-  - interactive_template_explorer
+const summary = classifyCollection([
+  { id: "1", name: "T", holdDays: 90, velocityPer30d: 1.2 },
+]);
+```
 
-recommended_stack:
-  viz: Scatter plot (Chart.js / Recharts)
-  data: AtomicMarket + AtomicAssets
-  detection: client_side_pattern_matching
+Production: compute `holdDays` / `velocityPer30d` from AtomicMarket sales history.
 
-machine_instructions:
-  - "Build interactive scatter plot for collection velocity analysis"
-  - "Implement quadrant classification and wash trading detection"
-  - "Create clear visual dashboard with template drill-down"
-  - "Add educational explanations of holder behavior metrics"
+---
+
+## Quadrants (default thresholds)
+
+| Quadrant | Rough meaning |
+|----------|----------------|
+| `diamond_hands` / `long_term_hold` | High hold, low velocity |
+| `active_trading` | Middle band |
+| `fast_flip` | Low hold, high velocity |
+| `wash_suspect` | Extreme velocity + short hold (or upstream flag) |
+
+Wash labels are **soft**. Circular trades need ledger-level confirmation.
+
+---
+
+## Architecture
+
+```
+TemplateVelocityPoint[] → classifyCollection → SVG / counts / flags
 ```
 
 ---
 
-## Ecosystem Synergy
+## License
 
-This tool pairs extremely well with:
-- `wax-collection-holder-overlap-cluster` — Combine velocity with audience overlap
-- `wax-account-sybil-distance-scorer` — Cross-reference with Sybil signals
-- `wax-defi-loyalty-health-scorecard` — Add loyalty context to trading behavior
-- Future royalty leakage and market health tools
+MIT — **Pixel Journey**
 
-It establishes a reusable market analytics pattern.
-
----
-
-## Implementation Highlights
-
-Full production code committed with:
-- Interactive scatter plot with quadrant coloring
-- Holding duration vs trade frequency calculation
-- Wash trading detection
-- Template detail modals
-- Demo mode with realistic datasets
-
----
-
-## How to Run
-```bash
-git clone https://github.com/pixel-journey/wax-collection-velocity-scatter-plot.git
-npm install
-npm run dev
-```
-
-Explore holder behavior across any WAX collection.
-
----
-
-## PX Perfection Alignment
-
-This implementation targets:
-- Educational Depth: Strong explanations + learning outcomes
-- Documentation Layers: Excellent README + spec.yaml + ecosystem links
-- Machine Readiness: Detailed spec.yaml with AI instructions
-- Visual Design: Clean scatter plot with retro pixel polish
-- Ecosystem Synergy: Explicit companion relationships documented
-
-Future iterations will add advanced filtering, export features, and deeper integration examples.
-
-*Pixel Journey — Raising the bar for market analytics tooling.*
+*Last major refinement: October 2026*
