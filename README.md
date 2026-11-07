@@ -6,6 +6,8 @@
 
 **Goal:** Classify collection templates by **hold duration vs trade velocity** into transparent quadrants, with soft **wash-suspect** flags. Educational scatter pipeline — not a marketplace accusation engine.
 
+The course is [EDUCATION.md](./EDUCATION.md). `npm test` locks the default edges: hold 90 and velocity 3 is `diamond_hands`, hold 14 and velocity 10 is `wash_suspect`. The numbers are arguments. No market is scanned.
+
 ---
 
 ## Honesty note
