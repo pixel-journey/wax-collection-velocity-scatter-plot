@@ -48,7 +48,9 @@ npm test
 | hold 14, velocity 10 | `wash_suspect` | velocity >= 10 and hold <= 14 |
 | any point with `suspectedWash` | `wash_suspect` | the flag wins before the other branches |
 
-`buildVelocityFlags` warns when the list has fewer than 5 points, and alerts when wash is at least 20% of the list. Those branches are not in `engines.test.ts`.
+The demo of ten templates is four `diamond_hands`, two `active_trading`, two `fast_flip`, and two `wash_suspect`. Two of ten is exactly 20%, so the only flag is `wash-share`. Four diamond hands are 40%, which is under the 50% holder flag.
+
+Four long holds raise `small-sample` and then `holder-heavy`. One wash in five is `wash-share` and not `small-sample`. Two fast flips in five is `flip-heavy`. Five quiet points (hold 30, velocity 1) are `neutral`.
 
 ---
 
