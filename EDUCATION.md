@@ -5,7 +5,11 @@
 
 `classifyPoint` does not read AtomicMarket. `holdDays` and `velocityPer30d` are arguments.
 
-## What you should be able to do
+Wash siblings (different products): [pattern flag](https://github.com/pixel-journey/wax-nft-wash-trading-pattern-flag) · [deduplicator](https://github.com/pixel-journey/wax-wash-trading-deduplicator) · [volume](https://github.com/pixel-journey/wax-wash-trading-volume-deduplicator).
+
+Official context: [docs.wax.io](https://docs.wax.io/).
+
+## Learning outcomes
 
 | Level | After this file |
 | --- | --- |
@@ -29,8 +33,6 @@ classifyPoint({ id: "1", name: "T", holdDays: 14, velocityPer30d: 10 }).quadrant
 
 `suspectedWash: true` is wash even at hold 100 and velocity 0. The other wash labs are not called.
 
-### Predict, then run
-
 ```bash
 npm test
 ```
@@ -52,15 +54,35 @@ The demo of ten templates is four `diamond_hands`, two `active_trading`, two `fa
 
 Four long holds raise `small-sample` and then `holder-heavy`. One wash in five is `wash-share` and not `small-sample`. Two fast flips in five is `flip-heavy`. Five quiet points (hold 30, velocity 1) are `neutral`.
 
+### Attack → test
+
+| Attack | Lab behavior |
+| --- | --- |
+| Treat wash quadrant as legal finding | soft label only |
+| Call AtomicMarket from pure classify | arguments only |
+| Confuse with volume deduplicator | different inputs (trades vs hold/velocity) |
+
 ---
 
 ## Masterclass — not a sale, not backing
 
 `wax-nft-wash-trading-pattern-flag`, `wax-wash-trading-deduplicator`, and `wax-wash-trading-volume-deduplicator` look at trades. This function looks at two numbers and an optional boolean. A wash quadrant is not a round trip and not subtracted volume.
 
-AtomicMarket v2 listings are one asset. That does not change a hold day. This is not `backasset` and not a holder airdrop.
+### Common mistakes
 
-### What this course will not teach
+1. Treating `wash_suspect` as a ban.  
+2. Claiming the page fetched sales.  
+3. Mixing hold-day thresholds with the 3600s trade window labs.
+
+### Exercises
+
+1. hold 90, velocity 3 — quadrant? (**diamond_hands**.)  
+2. Does `suspectedWash` override hold 100? (**Yes**.)  
+3. Is this a live market scan? (**No**.)
+
+---
+
+## What this course will not teach
 
 - That the page fetched sales
 - A legal finding from `wash_suspect`
