@@ -1,12 +1,22 @@
-# wax-collection-velocity-scatter-plot
+# A quadrant from two numbers
 
-> **Status:** 🔄 Deep Refinement (PX Perfection Standard v1.1)  
-> **Category:** Market analytics  
-> **Parent Catalog:** [wax-ecosystem-blueprint-catalog](https://github.com/pixel-journey/wax-ecosystem-blueprint-catalog)
+> **Trust:** `educational-reference`  
+> **Catalog:** `wax-ecosystem-blueprint-catalog` (private index; not this public course)
 
-**Goal:** Classify collection templates by **hold duration vs trade velocity** into transparent quadrants, with soft **wash-suspect** flags. Educational scatter pipeline — not a marketplace accusation engine.
+**Goal:** Classify `holdDays` and `velocityPer30d` into a quadrant. The numbers are arguments. No market is scanned. `wash_suspect` is not a finding about a wallet.
 
-The course is [EDUCATION.md](./EDUCATION.md). `npm test` locks the default edges: hold 90 and velocity 3 is `diamond_hands`, hold 14 and velocity 10 is `wash_suspect`. The numbers are arguments. No market is scanned.
+The course is [EDUCATION.md](./EDUCATION.md).
+
+| Inputs | Quadrant |
+| --- | --- |
+| hold 90, velocity 3 | `diamond_hands` (hold >= 90 and velocity < 4) |
+| hold 89, velocity 3 | `long_term_hold` |
+| hold 14, velocity 4 | `active_trading` (14 is not `< 14`) |
+| hold 13, velocity 4 | `fast_flip` |
+| hold 14, velocity 10 | `wash_suspect` (velocity >= 10 and hold <= 14) |
+| `suspectedWash: true` | `wash_suspect`, even at hold 100 and velocity 0 |
+
+`examples/live/**` is not part of `npm test`.
 
 ---
 
@@ -32,12 +42,13 @@ Production: compute `holdDays` / `velocityPer30d` from AtomicMarket sales histor
 
 ## Quadrants (default thresholds)
 
-| Quadrant | Rough meaning |
-|----------|----------------|
-| `diamond_hands` / `long_term_hold` | High hold, low velocity |
-| `active_trading` | Middle band |
-| `fast_flip` | Low hold, high velocity |
-| `wash_suspect` | Extreme velocity + short hold (or upstream flag) |
+| Quadrant | Predicate |
+| --- | --- |
+| `diamond_hands` | hold >= 90 and velocity < 4 |
+| `long_term_hold` | hold >= 60 and velocity < 4, and not diamond |
+| `fast_flip` | hold < 14 and velocity >= 4 |
+| `active_trading` | none of the above |
+| `wash_suspect` | `suspectedWash`, or velocity >= 10 and hold <= 14. This branch wins first. |
 
 Wash labels are **soft**. Circular trades need ledger-level confirmation.
 
