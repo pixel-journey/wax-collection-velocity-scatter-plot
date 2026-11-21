@@ -29,4 +29,12 @@
 
 ## Honesty limits
 
-No network in the pure classifier. [docs.wax.io](https://docs.wax.io/) · [wash-trading-deduplicator](https://github.com/pixel-journey/wax-wash-trading-deduplicator) · [pattern flag](https://github.com/pixel-journey/wax-nft-wash-trading-pattern-flag) · [volume deduplicator](https://github.com/pixel-journey/wax-wash-trading-volume-deduplicator).
+No network in the pure classifier.
+
+| Sibling | Distinction |
+| --- | --- |
+| [wash-trading-deduplicator](https://github.com/pixel-journey/wax-wash-trading-deduplicator) | 3600s clock window |
+| [pattern flag](https://github.com/pixel-journey/wax-nft-wash-trading-pattern-flag) | Two-trade reverse |
+| [volume deduplicator](https://github.com/pixel-journey/wax-wash-trading-volume-deduplicator) | `2*min`, no clock |
+
+[docs.wax.io](https://docs.wax.io/).
